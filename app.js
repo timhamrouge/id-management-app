@@ -20,7 +20,7 @@ app.use(session({
 }));
 
 
-app.get('/', (request, response) => {
+app.get('/login', (request, response) => {
   response.sendFile(path.join(`${__dirname}/views/login.html`));
 });
 
@@ -44,8 +44,12 @@ app.post('/auth', (request, response) => {
 });
 
 app.get('/home', (request, response) => {
-  console.log(request.session)
-  response.status(200).send(`hi ${request.session.username}, u r logged in`)
+  if (request.session.loggedin) {
+    response.sendFile(path.join(`${__dirname}/views/home.html`));
+  } else {
+    response.send('please login to view this page');
+  }
+  response.end();
 });
 
 app.listen(3000, () => {
