@@ -25,11 +25,9 @@ app.get('/', (request, response) => {
 });
 
 app.post('/auth', (request, response) => {
-  console.log(request.session.resave, 'thi', request.body);
-
   const { username, password } = request.body;
+
   if(username && password) {
-    console.log('yes')
     if(username === process.env.USERNAME && password === process.env.PASSWORD) {
       request.session.loggedin = true;
       request.session.username = username;
@@ -43,7 +41,12 @@ app.post('/auth', (request, response) => {
     response.send('please enter a username and password');
     response.end();
   }
-})
+});
+
+app.get('/home', (request, response) => {
+  console.log(request.session)
+  response.status(200).send(`hi ${request.session.username}, u r logged in`)
+});
 
 app.listen(3000, () => {
   console.log('app listening on port 3000');
