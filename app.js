@@ -2,11 +2,13 @@ import 'dotenv/config';
 import express from 'express';
 import session from 'express-session';
 import bodyParser from 'body-parser';
-import path from 'path';
+
+import exphbs from 'express-handlebars';
 
 const app = express();
 
-console.log(process.env.USERNAME, process.env.PASSWORD)
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
 
 // configure body-parser
 
@@ -21,7 +23,7 @@ app.use(session({
 
 
 app.get('/login', (request, response) => {
-  response.sendFile(path.join(`${__dirname}/views/login.html`));
+  response.render('login');
 });
 
 app.post('/auth', (request, response) => {
@@ -45,7 +47,7 @@ app.post('/auth', (request, response) => {
 
 app.get('/home', (request, response) => {
   if (request.session.loggedin) {
-    response.sendFile(path.join(`${__dirname}/views/home.html`));
+    response.render('home');
   } else {
     response.send('please login to view this page');
   }
