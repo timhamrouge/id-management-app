@@ -38,6 +38,10 @@ app.get('/login', (request, response) => {
   response.render('login');
 });
 
+app.get('/register', function(request, response) {
+  response.render('registration', {layout: 'main', template: 'home-template'});
+})
+
 app.post('/auth', (request, response) => {
   const { username, password } = request.body;
 
