@@ -1,9 +1,11 @@
 import 'dotenv/config';
-import express, { response } from 'express';
+import express from 'express';
 import session from 'express-session';
 import bodyParser from 'body-parser';
 
 import hbs from 'express-handlebars';
+
+import mongo from './mongo';
 
 const app = express();
 
@@ -40,6 +42,10 @@ app.get('/login', (request, response) => {
 
 app.get('/register', function(request, response) {
   response.render('registration', {layout: 'main', template: 'home-template'});
+})
+
+app.get('/mongo', function(req, res) {
+  mongo();
 })
 
 app.post('/auth', (request, response) => {
