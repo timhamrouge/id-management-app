@@ -1,14 +1,22 @@
 import 'dotenv/config';
-import express from 'express';
+import express, { response } from 'express';
 import session from 'express-session';
 import bodyParser from 'body-parser';
 
-import exphbs from 'express-handlebars';
+import hbs from 'express-handlebars';
 
 const app = express();
 
-app.engine('handlebars', exphbs());
-app.set('view engine', 'handlebars');
+// view engine setup
+app.set('view engine', 'hbs');
+
+app.engine( 'hbs', hbs( {
+  extname: 'hbs',
+  defaultView: 'default',
+  layoutsDir: __dirname + '/views/layouts/',
+  partialsDir: __dirname + '/views/partials/'
+}));
+
 
 // configure body-parser
 
@@ -21,6 +29,9 @@ app.use(session({
   saveUninitialized: true,
 }));
 
+app.get('/', function(req, res, next) {
+  res.render('y', {layout: 'main', template: 'home-template'});
+});
 
 app.get('/login', (request, response) => {
   response.render('login');
