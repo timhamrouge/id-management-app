@@ -42,9 +42,9 @@ app.get('/', function(req, res, next) {
 
 app.use('/', api);
 
-// app.get('/login', (request, response) => {
-//   response.render('login');
-// });
+app.get('/login', (request, response) => {
+  response.render('login');
+});
 
 app.get('/register', function(request, response) {
   response.render('registration', {layout: 'main', template: 'home-template'});

@@ -1,5 +1,5 @@
 import express from 'express';
-import {createUser} from './controllers/users'
+import {createUser, findUser} from './controllers/users'
 
 const api = express.Router();
 
@@ -8,5 +8,6 @@ const api = express.Router();
 //user - get one, check username/email, put to update, post to create, delete
 
 api.post("/registration", createUser);
+api.post("/auth", findUser)
 
 export default api;
