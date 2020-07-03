@@ -50,6 +50,11 @@ app.get('/register', function(request, response) {
   response.render('registration', {layout: 'main', template: 'home-template'});
 })
 
+app.post('/logout', function (req,res) {
+  req.session.destroy()
+  res.render('login');
+})
+
 // app.get('/mongo', function(req, res) {
 //   mongo('usrname', 'email', 'password');
 // })

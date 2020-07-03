@@ -31,6 +31,9 @@ function findUser(req, res) {
         }
         // mongoose.connection.close()
     })
+    .catch((err) => {
+        console.log(err);
+    })
     // .then(() => 
     //     console.log('closed and done'),
     //     res.send('ok')
