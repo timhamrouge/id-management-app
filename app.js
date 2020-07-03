@@ -45,7 +45,7 @@ app.get('/register', function(request, response) {
 })
 
 app.get('/mongo', function(req, res) {
-  mongo();
+  mongo('usrname', 'email', 'password');
 })
 
 app.post('/auth', (request, response) => {
