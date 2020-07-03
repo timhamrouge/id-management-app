@@ -2,6 +2,7 @@ import 'dotenv/config';
 import express from 'express';
 import session from 'express-session';
 import bodyParser from 'body-parser';
+import morgan from 'morgan';
 
 import hbs from 'express-handlebars';
 
@@ -25,6 +26,7 @@ app.engine('hbs', hbs());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(morgan('tiny'));
 
 app.use(session({
   secret: 'secret',
