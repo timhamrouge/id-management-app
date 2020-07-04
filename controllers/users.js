@@ -1,6 +1,6 @@
 import Users from '../models/users'
 import mongoose from 'mongoose';
-import connect from '../utils/db';
+import connectToDB from '../utils/db';
 
 
 function createUser(req, res) {
@@ -8,7 +8,7 @@ function createUser(req, res) {
     let user = new Users({ username, email, password });
 
 
-    mongoose.connect('mongodb://localhost:27017/myapp', { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
+    connectToDB().then(() => {
         console.log('connected')
         return user.save()
     }).then((x) => {
@@ -24,7 +24,7 @@ function updateUser(req,res) {
     const { username, payload } = req.body;
 
     // not finished!
-    mongoose.connect('mongodb://localhost:27017/myapp', { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
+    connectToDB().then(() => {
         return Users.findOneAndUpdate({ username }, { ...payload }, { new: true })
     }).then((x) => {
         console.log('updated', x)
@@ -42,7 +42,7 @@ function authUser(request, response) {
 
     if (username && password) {
 
-        mongoose.connect('mongodb://localhost:27017/myapp', { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
+        connectToDB().then(() => {
 
             return Users.findOne({ username });
         }).then((x) => {
@@ -83,7 +83,7 @@ function searchDetails(req, res) {
     }
 
     if (payload.username || payload.email) {
-    connect()
+    connectToDB()
     .then(() => {
         return Users.findOne({...payload})
     })
@@ -103,4 +103,17 @@ function searchDetails(req, res) {
 
 }
 
-module.exports = { createUser, authUser, updateUser, searchDetails }
+function deleteUser(req,res) {
+    const { username } = req.body;
+
+    connectToDB()
+    .then(()=> {
+        return Users.findOneAndRemove({username})
+    })
+    .then((x) => {
+        console.log(x);
+    })
+
+}
+
+module.exports = { createUser, authUser, updateUser, searchDetails, deleteUser }

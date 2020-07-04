@@ -1,5 +1,5 @@
 import express from 'express';
-import { createUser, authUser, updateUser, searchDetails } from './controllers/users'
+import { createUser, authUser, updateUser, searchDetails, deleteUser } from './controllers/users'
 
 const api = express.Router();
 
@@ -14,6 +14,8 @@ const api = express.Router();
 
 api.post("/create", createUser);
 api.post("/auth", authUser)
+
+api.delete("/delete", deleteUser)
 
 
 // view routes
