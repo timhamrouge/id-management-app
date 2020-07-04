@@ -21,7 +21,6 @@ app.engine('hbs', hbs());
 //   partialsDir: __dirname + '/views/partials/'
 // }));
 
-
 // configure body-parser
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

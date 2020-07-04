@@ -7,18 +7,20 @@ const api = express.Router();
 
 //user - get one, check username/email, put to update, post to create, delete
 
-api.get('/', function (req, res, next) {
-    res.render('y', { layout: 'main', template: 'home-template' });
-});
+// DB STUFF
+  api.put('/update', (req, res) => {
 
-api.get('/login', (request, response) => {
-    response.render('login');
-});
+})
 
-api.get('/register', function(request, response) {
-    response.render('registration', {layout: 'main', template: 'home-template'});
-  })
+api.post('/exists', (req, res) => {
+    console.log('hi tim');
+})
 
+api.post("/create", createUser);
+api.post("/auth", authUser)
+
+
+// view routes
 api.get('/home', (request, response) => {
     if (request.session.loggedin) {
         response.render('home');
@@ -28,12 +30,19 @@ api.get('/home', (request, response) => {
     response.end();
 })
 
-api.post('/exists', (req, res) => {
-    console.log('hi tim');
-})
+api.get('/register', function(request, response) {
+    response.render('registration', {layout: 'main', template: 'home-template'});
+  })
 
-api.post("/registration", createUser);
-api.post("/auth", authUser)
+api.get('/', function (req, res, next) {
+    res.render('y', { layout: 'main', template: 'home-template' });
+});
+
+api.get('/login', (request, response) => {
+    response.render('login');
+});
+
+
 
 api.post('/logout', function (req, res) {
     req.session.destroy()

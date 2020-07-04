@@ -18,6 +18,22 @@ function createUser(req, res) {
     );
 }
 
+function updateUser(req,res) {
+    const {username, email, password} = req.body;
+    // not finished!
+    mongoose.connect('mongodb://localhost:27017/myapp', { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
+        console.log('connected')
+        return user.save()
+    }).then((x) => {
+        console.log('created', x)
+        mongoose.connection.close()
+    }).then(() =>
+        console.log('closed and done'),
+        res.send('ok')
+    );
+
+}
+
 function authUser(request, response) {
     console.log('MADE IT SOOOOOON')
     const { username, password } = request.body;
