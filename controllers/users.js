@@ -1,10 +1,12 @@
 import Users from '../models/users'
 import mongoose from 'mongoose';
+import connect from '../utils/db';
 
 
 function createUser(req, res) {
     const { username, email, password } = req.body;
     let user = new Users({ username, email, password });
+
 
     mongoose.connect('mongodb://localhost:27017/myapp', { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
         console.log('connected')
@@ -72,6 +74,7 @@ function authUser(request, response) {
 function searchDetails(req, res) {
     const payload = req.body;
 
+
     if (Object.keys(payload).length > 1) {
         res.send('you can only search by one thing at a time')
         return res.end();
@@ -80,7 +83,7 @@ function searchDetails(req, res) {
     }
 
     if (payload.username || payload.email) {
-    mongoose.connect('mongodb://localhost:27017/myapp', { useNewUrlParser: true, useUnifiedTopology: true })
+    connect()
     .then(() => {
         return Users.findOne({...payload})
     })
