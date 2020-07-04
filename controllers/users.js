@@ -72,6 +72,14 @@ function authUser(request, response) {
 function searchDetails(req, res) {
     const payload = req.body;
 
+    if (Object.keys(payload).length > 1) {
+        res.send('you can only search by one thing at a time')
+        return res.end();
+
+
+    }
+
+    if (payload.username || payload.email) {
     mongoose.connect('mongodb://localhost:27017/myapp', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         return Users.findOne({...payload})
@@ -84,7 +92,10 @@ function searchDetails(req, res) {
         else {
             res.send('found one')
         }
-    })
+    })}
+    else {
+    res.send('unsupported search')
+}
 
 
 }
