@@ -1,24 +1,26 @@
 import express from 'express';
-import { createUser, authUser, updateUser, searchDetails, deleteUser } from './controllers/users'
+import { createUser, authUser, updateUser, searchDetails, deleteUser } from './controllers/users';
+import login from './controllers/login';
 import { destroySession } from './middleware';
 
 const api = express.Router();
 
-// Server
-api.delete("/delete", deleteUser);
-api.get('/search', searchDetails);
-api.post("/auth", authUser);
-api.post("/create", createUser);
-api.put('/update', updateUser);
 
-// Client
+api.delete("/delete", deleteUser);
+
 api.get('/', (req, res) => res.render('login'))
-api.get('/register', (req, res) => res.render('registration'))
 api.get('/home', (req, res) => res.render('home'))
 api.get('/login', (req, res) => res.render('login'));
 api.get('/logout', destroySession, (req,res) => res.redirect('login'));
+api.get('/register', (req, res) => res.render('registration'))
+api.get('/search', searchDetails);
 
+api.post("/login", login, authUser, (req, res) => res.render('home'));
+api.post("/create", createUser);
 
+api.put('/update', updateUser);
+
+export default api;
 
 // view routes needs a registration, a login, a home/dashboard, a logout
 // api.get('/home', (request, response) => {
@@ -41,5 +43,3 @@ api.get('/logout', destroySession, (req,res) => res.redirect('login'));
 // api.get('/login', (request, response) => {
 //     response.render('login');
 // });
-
-export default api;
