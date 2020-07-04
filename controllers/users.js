@@ -20,7 +20,7 @@ function createUser(req, res) {
 
 function updateUser(req,res) {
     const { username, payload } = req.body;
-    console.log(username, payload, 'payload');
+
     // not finished!
     mongoose.connect('mongodb://localhost:27017/myapp', { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
         return Users.findOneAndUpdate({ username }, { ...payload }, { new: true })
@@ -69,4 +69,24 @@ function authUser(request, response) {
     }
 }
 
-module.exports = { createUser, authUser, updateUser }
+function searchDetails(req, res) {
+    const payload = req.body;
+
+    mongoose.connect('mongodb://localhost:27017/myapp', { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => {
+        return Users.findOne({...payload})
+    })
+    .then((x) => {
+        console.log(x)
+        if (!x) {
+            res.send('nope')
+        }
+        else {
+            res.send('found one')
+        }
+    })
+
+
+}
+
+module.exports = { createUser, authUser, updateUser, searchDetails }

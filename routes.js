@@ -1,5 +1,5 @@
 import express from 'express';
-import { createUser, authUser, updateUser } from './controllers/users'
+import { createUser, authUser, updateUser, searchDetails } from './controllers/users'
 
 const api = express.Router();
 
@@ -10,9 +10,7 @@ const api = express.Router();
 // DB STUFF
   api.put('/update', updateUser)
 
-api.post('/exists', (req, res) => {
-    console.log('hi tim');
-})
+  api.post('/search', searchDetails)
 
 api.post("/create", createUser);
 api.post("/auth", authUser)
