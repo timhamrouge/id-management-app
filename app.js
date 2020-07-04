@@ -4,7 +4,7 @@ import session from 'express-session';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 
-import api from './routes'
+import api from './routes';
 
 import hbs from 'express-handlebars';
 

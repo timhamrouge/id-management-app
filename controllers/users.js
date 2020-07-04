@@ -20,7 +20,7 @@ function createUser(req, res) {
     );
 }
 
-function updateUser(req,res) {
+function updateUser(req, res) {
     const { username, payload } = req.body;
 
     // not finished!
@@ -59,11 +59,11 @@ function authUser(request, response) {
             mongoose.connection.close();
         }).then(() => {
             console.log('closed and done'),
-            response.redirect('/home');
+                response.redirect('/home');
         })
-    .catch ((err) => {
-            console.log(err);
-        })
+            .catch((err) => {
+                console.log(err);
+            })
     }
     else {
         response.send('please enter a username and password');
@@ -80,36 +80,37 @@ function searchDetails(req, res) {
     }
 
     if (query.username || query.email) {
-    connectToDB()
-    .then(() => {
-        return Users.findOne({...query})
-    })
-    .then((x) => {
-        console.log(x)
-        if (!x) {
-            res.send('nope')
-        }
-        else {
-            res.send('found one')
-        }
-    })}
+        connectToDB()
+            .then(() => {
+                return Users.findOne({ ...query })
+            })
+            .then((x) => {
+                console.log(x)
+                if (!x) {
+                    res.send('nope')
+                }
+                else {
+                    res.send('found one')
+                }
+            })
+    }
     else {
-    res.send('unsupported search')
-}
+        res.send('unsupported search')
+    }
 
 
 }
 
-function deleteUser(req,res) {
+function deleteUser(req, res) {
     const { username } = req.body;
 
     connectToDB()
-    .then(()=> {
-        return Users.findOneAndRemove({username})
-    })
-    .then((x) => {
-        console.log(x);
-    })
+        .then(() => {
+            return Users.findOneAndRemove({ username })
+        })
+        .then((x) => {
+            console.log(x);
+        })
 
 }
 
