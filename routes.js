@@ -1,5 +1,5 @@
 import express from 'express';
-import { createUser, authUser } from './controllers/users'
+import { createUser, authUser, updateUser } from './controllers/users'
 
 const api = express.Router();
 
@@ -8,9 +8,7 @@ const api = express.Router();
 //user - get one, check username/email, put to update, post to create, delete
 
 // DB STUFF
-  api.put('/update', (req, res) => {
-
-})
+  api.put('/update', updateUser)
 
 api.post('/exists', (req, res) => {
     console.log('hi tim');
