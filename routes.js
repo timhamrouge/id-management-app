@@ -15,6 +15,10 @@ api.get('/login', (request, response) => {
     response.render('login');
 });
 
+api.get('/register', function(request, response) {
+    response.render('registration', {layout: 'main', template: 'home-template'});
+  })
+
 api.get('/home', (request, response) => {
     if (request.session.loggedin) {
         response.render('home');
@@ -22,6 +26,10 @@ api.get('/home', (request, response) => {
         response.send('please login to view this page');
     }
     response.end();
+})
+
+api.post('/exists', (req, res) => {
+    console.log('hi tim');
 })
 
 api.post("/registration", createUser);

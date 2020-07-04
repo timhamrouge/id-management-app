@@ -5,4 +5,14 @@
       <input type="password" name="password" placeholder="Password" required>
       <input type="submit">
     </form>
+
+        <button onclick="xyz()">DA BUTTON</button>
+
+    <script>
+        function xyz() {
+            fetch('/exists', {method: 'POST'}).then((x)=> {
+                console.log(x,'fetched');
+            })
+        }
+    </script>
   </div>
