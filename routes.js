@@ -10,7 +10,7 @@ const api = express.Router();
 // DB STUFF
   api.put('/update', updateUser)
 
-  api.post('/search', searchDetails)
+  api.get('/search/', searchDetails)
 
 api.post("/create", createUser);
 api.post("/auth", authUser)

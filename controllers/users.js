@@ -72,20 +72,17 @@ function authUser(request, response) {
 }
 
 function searchDetails(req, res) {
-    const payload = req.body;
+    const query = req.query;
 
-
-    if (Object.keys(payload).length > 1) {
+    if (Object.keys(query).length > 1) {
         res.send('you can only search by one thing at a time')
         return res.end();
-
-
     }
 
-    if (payload.username || payload.email) {
+    if (query.username || query.email) {
     connectToDB()
     .then(() => {
-        return Users.findOne({...payload})
+        return Users.findOne({...query})
     })
     .then((x) => {
         console.log(x)
