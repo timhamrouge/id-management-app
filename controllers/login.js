@@ -1,10 +1,19 @@
-export default (req, res) => {
-    const { email, password } = req.body;
+export default (req, res, next) => {
+    // if (req.session.loggedin && req.session.username) return res.redirect('home');
+    
+    // const { username, password } = req.body;
 
-    if(!email && !password) {
-        return res.render('login', {
-            foo: 'foo'
-        })
-    }
+    // console.log(username, password);
 
+    // // if no password and no user/email, do something
+    // if (!username || !password) {
+    //     return res.render('login', {
+    //         foo: 'bar'
+    //     })
+    // } else next();
+
+
+    // return res.render('login')
+    console.log('in login');
+    next();
 }

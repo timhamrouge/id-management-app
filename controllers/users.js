@@ -1,6 +1,9 @@
 import Users from '../models/users'
 import mongoose from 'mongoose';
-import connectToDB from '../utils/db';
+import {
+    connect as connectToDB, 
+    disconnect
+} from '../utils/db';
 
 
 function createUser(req, res) {
@@ -36,38 +39,39 @@ function updateUser(req, res) {
 
 }
 
-function authUser(request, response) {
-    console.log('MADE IT SOOOOOON')
-    const { username, password } = request.body;
+function authUser(req, res) {
+    const { username, password } = req.body;
 
     if (username && password) {
+        connectToDB()
+          .then(() => {
+              return Users.findOne({ username });
+            })
+          .then((result) => {
 
-        connectToDB().then(() => {
-
-            return Users.findOne({ username });
-        }).then((x) => {
-            if (!x) {
-                response.send('looks like you made a mistake');
-                response.end();
+            if (!result) {
+                return res.status(201).render('login', {
+                    login: 'failed'
+                })
             }
 
-
-            if (x.password === password) {
-                request.session.loggedin = true;
-                request.session.username = username;
+            if (result.password === password) {
+                req.session.loggedin = true;
+                req.session.username = username;
             }
-            mongoose.connection.close();
+
+            disconnect();
         }).then(() => {
-            console.log('closed and done'),
-                response.redirect('/home');
+            return res.status(200).send()
+                res.redirect('/home');
         })
             .catch((err) => {
                 console.log(err);
             })
     }
     else {
-        response.send('please enter a username and password');
-        response.end();
+        res.send('please enter a username and password');
+        res.end();
     }
 }
 

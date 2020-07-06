@@ -2,7 +2,7 @@
 
 TODO:
 
-TIDY UP WHAT YOU HAVE BEFORE YOU BUILD ANYTHING NEW
+login - so get at login should render the the login page, the post, post at login should  
 
 user can see a login screen as standard. They are prompted to login. 
 If they enter the wrong credentials, it validates this. if they attempt to

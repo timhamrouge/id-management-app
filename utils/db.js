@@ -3,6 +3,13 @@ import 'dotenv/config';
 const  { DB_URL } = process.env;
 
 
-export default () => {
+function connect() {
     return mongoose.connect(`${DB_URL}`, { useNewUrlParser: true, useUnifiedTopology: true })
 }
+
+function disconnect () {
+    return mongoose.connection.close();
+}
+
+
+module.exports = { connect, disconnect };
