@@ -41,7 +41,7 @@ function authUser(req, res, next) {
 
     Users.findOne({ username })
         .then((result) => {
-            console.log(result)
+            
             if (!result) {
                 return res.render('login', {
                     bad_auth: true,
