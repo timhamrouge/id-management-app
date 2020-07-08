@@ -5,8 +5,7 @@ import {
     updateUser, 
     searchDetails, 
     deleteUser } from './controllers/users';
-import login from './controllers/login';
-import { destroySession } from './middleware';
+import { destroySession, login } from './middleware';
 
 const api = express.Router();
 
@@ -15,13 +14,13 @@ api.delete("/delete", deleteUser);
 
 api.get('/', (req, res) => res.render('login'))
 api.get('/home', (req, res) => res.render('home'))
-api.get('/login', login, (req, res) => res.render('login'));
+api.get('/login', (req, res) => res.render('login'));
 api.get('/logout', destroySession, (req,res) => res.redirect('login'));
 api.get('/register', (req, res) => res.render('registration'))
 api.get('/search', searchDetails);
 
 //this needs to use login controllers, then authuserend point then redirect to 'home'
-api.post("/login", login,  authUser);
+api.post("/login", authUser);
 // api.post("/login", login, authUser, (req, res) => res.render('home'));
 
 api.post("/create", createUser);

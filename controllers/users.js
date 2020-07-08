@@ -1,19 +1,16 @@
 import Users from '../models/users'
 import mongoose from 'mongoose';
 import {
-    connect as connectToDB, 
+    connect as connectToDB,
     disconnect
 } from '../utils/db';
-
 
 function createUser(req, res) {
     const { username, email, password } = req.body;
     let user = new Users({ username, email, password });
 
 
-    connectToDB().then(() => {
-        console.log('connected')
-        return user.save()
+    return user.save().then(() => {
     }).then((x) => {
         console.log('created', x)
         mongoose.connection.close()
@@ -39,40 +36,32 @@ function updateUser(req, res) {
 
 }
 
-function authUser(req, res) {
+function authUser(req, res, next) {
     const { username, password } = req.body;
 
-    if (username && password) {
-        connectToDB()
-          .then(() => {
-              return Users.findOne({ username });
-            })
-          .then((result) => {
-
+    Users.findOne({ username })
+        .then((result) => {
+            console.log(result)
             if (!result) {
-                return res.status(201).render('login', {
-                    login: 'failed'
+                return res.render('login', {
+                    bad_auth: true,
+                    bad_user: true
                 })
             }
 
             if (result.password === password) {
                 req.session.loggedin = true;
                 req.session.username = username;
+                return res.status(200).redirect('/home');
+            } else {
+                return res.render('login', {
+                    bad_auth: true,
+                    bad_pass: true
+                })
             }
-
-            disconnect();
-        }).then(() => {
-            return res.status(200).send()
-                res.redirect('/home');
+        }).catch((err) => {
+            next(err);
         })
-            .catch((err) => {
-                console.log(err);
-            })
-    }
-    else {
-        res.send('please enter a username and password');
-        res.end();
-    }
 }
 
 function searchDetails(req, res) {
