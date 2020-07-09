@@ -41,7 +41,7 @@ function authUser(req, res, next) {
 
     Users.findOne({ username })
         .then((result) => {
-            
+
             if (!result) {
                 return res.render('login', {
                     bad_auth: true,
@@ -56,7 +56,8 @@ function authUser(req, res, next) {
             } else {
                 return res.render('login', {
                     bad_auth: true,
-                    bad_pass: true
+                    bad_pass: true,
+                    username: username
                 })
             }
         }).catch((err) => {

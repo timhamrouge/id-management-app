@@ -1,10 +1,28 @@
   <div>
     <h1>Login</h1>
-    <form action="login" method="POST">
-      <input type="text" name="username" placeholder="Username" >
+          {{!-- {{#if bad_auth}}
+          {{username}}
+          {{else}}
+          Hey timbothy
+          {{/if}} --}}
+    <p>bad_auth:{{bad_auth}}  </p>
+    <form name="login" action="/login" onsubmit="return validateForm()" method="POST">
+      <input type="text" name="username" placeholder="Username">
+      <p>badUser{{bad_user}}</p>
       <input type="password" name="password" placeholder="Password" >
+      <p>badPass {{bad_pass}}</p>
       <input type="submit">
     </form>
-
-    bad_auth:{{bad_auth}}  badUser{{bad_user}} badPass {{bad_pass}}
+  
   </div>
+
+  <script>
+    function validateForm() {
+      const x = document.forms["login"]["username"].value
+      const y = document.forms["login"]["password"].value
+      if (x === "" && y === "") {
+        console.log('inside')
+        return false
+      }
+    }
+  </script>
