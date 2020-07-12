@@ -2,7 +2,11 @@
 
 TODO:
 
+{ "username": "new", "payload": {"username": "tim", "password": "pass", "email": "email@email"} }
+
 work on displaying the bad_auth, bad_user and bad_pass in line with their form fields. Form should only POST if the fields validate correctly, i.e. are not empty. 
+
+when accessing the login page with a GET, it needs to set 
 
 user can see a login screen as standard. They are prompted to login. 
 If they enter the wrong credentials, it validates this. if they attempt to

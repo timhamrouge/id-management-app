@@ -14,13 +14,13 @@ api.delete("/delete", deleteUser);
 
 api.get('/', (req, res) => res.render('login'))
 api.get('/home', (req, res) => res.render('home'))
-api.get('/login', (req, res) => res.render('login', { bad_auth: null, bad_user: null, bad_pass: null, username: ''}));
+api.get('/login', login);
 api.get('/logout', destroySession, (req,res) => res.redirect('login'));
 api.get('/register', (req, res) => res.render('registration'))
 api.get('/search', searchDetails);
 
 //this needs to use login controllers, then authuserend point then redirect to 'home'
-api.post("/login", authUser);
+api.post("/login", login, authUser);
 // api.post("/login", login, authUser, (req, res) => res.render('home'));
 
 api.post("/create", createUser);

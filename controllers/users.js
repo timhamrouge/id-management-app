@@ -43,10 +43,9 @@ function authUser(req, res, next) {
         .then((result) => {
 
             if (!result) {
-                return res.render('login', {
-                    bad_auth: true,
-                    bad_user: true
-                })
+                req.session.username = username;
+                req.session.bad_login = true;
+                return res.status(401).redirect('login')
             }
 
             if (result.password === password) {
@@ -54,7 +53,7 @@ function authUser(req, res, next) {
                 req.session.username = username;
                 return res.status(200).redirect('/home');
             } else {
-                return res.render('login', {
+                return res.redirect('login', {
                     bad_auth: true,
                     bad_pass: true,
                     username: username

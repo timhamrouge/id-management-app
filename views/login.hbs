@@ -5,24 +5,35 @@
           {{else}}
           Hey timbothy
           {{/if}} --}}
-    <p>bad_auth:{{bad_auth}}  </p>
+    <p>bad_login:{{bad_login}}  </p>
     <form name="login" action="/login" onsubmit="return validateForm()" method="POST">
       <input type="text" name="username" placeholder="Username">
-      <p>badUser{{bad_user}}</p>
+      <br/>
+
+      <span id="username-error"></span>
+      <p>bad_username{{username}}</p>
       <input type="password" name="password" placeholder="Password" >
-      <p>badPass {{bad_pass}}</p>
+      <br/>
+      <span id="password-error"></span>
+
       <input type="submit">
     </form>
   
   </div>
 
+
+
   <script>
     function validateForm() {
       const x = document.forms["login"]["username"].value
       const y = document.forms["login"]["password"].value
-      if (x === "" && y === "") {
-        console.log('inside')
+      if (x === "") {
+        document.getElementById("username-error").innerHTML = "Please provide your ussername/email"
         return false
-      }
+      } else document.getElementById("username-error").innerHTML = "";
+      if (y === "") {
+        document.getElementById("password-error").innerHTML = "Please provide your password"
+        return false
+      } else document.getElementById("password-error").innerHTML = "";
     }
   </script>
