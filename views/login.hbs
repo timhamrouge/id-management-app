@@ -6,12 +6,13 @@
           Hey timbothy
           {{/if}} --}}
     <p>bad_login:{{bad_login}}  </p>
+          <p>bad_username:{{username}}</p>
     <form name="login" action="/login" onsubmit="return validateForm()" method="POST">
       <input type="text" name="username" placeholder="Username">
       <br/>
 
       <span id="username-error"></span>
-      <p>bad_username{{username}}</p>
+
       <input type="password" name="password" placeholder="Password" >
       <br/>
       <span id="password-error"></span>

@@ -42,23 +42,17 @@ function authUser(req, res, next) {
     Users.findOne({ username })
         .then((result) => {
 
-            if (!result) {
+            if ((!result) || (result && result.password != password)) {
                 req.session.username = username;
                 req.session.bad_login = true;
                 return res.status(401).redirect('login')
             }
 
-            if (result.password === password) {
-                req.session.loggedin = true;
                 req.session.username = username;
+                req.session.bad_login = false;
+                req.session.loggedin = true;
                 return res.status(200).redirect('/home');
-            } else {
-                return res.redirect('login', {
-                    bad_auth: true,
-                    bad_pass: true,
-                    username: username
-                })
-            }
+
         }).catch((err) => {
             next(err);
         })
