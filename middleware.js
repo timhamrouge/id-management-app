@@ -8,14 +8,14 @@ export const login = (req, res, next) => {
     const { method, session } = req;
 
     if (method === "GET") {
-        let resObj = {};
+        let resObj = {}
         if (session.username && session.bad_login) {
             resObj = {username : session.username, bad_login : session.bad_login}
         }
     return res.render('login', resObj);
     }
 
-    next ();
+    next();
 
     // if (method === 'GET') {
     //     return res.render('login', {

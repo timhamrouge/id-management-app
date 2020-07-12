@@ -45,13 +45,14 @@ function authUser(req, res, next) {
             if ((!result) || (result && result.password != password)) {
                 req.session.username = username;
                 req.session.bad_login = true;
-                return res.status(401).redirect('login')
+                res.status(401);           
+                return res.redirect('/login');
             }
 
-                req.session.username = username;
-                req.session.bad_login = false;
-                req.session.loggedin = true;
-                return res.status(200).redirect('/home');
+            req.session.username = username;
+            delete req.session.bad_login;
+            req.session.loggedin = true;
+            return res.status(200).redirect('/home');
 
         }).catch((err) => {
             next(err);

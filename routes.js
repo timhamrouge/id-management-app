@@ -20,7 +20,9 @@ api.get('/register', (req, res) => res.render('registration'))
 api.get('/search', searchDetails);
 
 //this needs to use login controllers, then authuserend point then redirect to 'home'
-api.post("/login", login, authUser);
+api.post("/login", login, authUser, (x) => {
+    console.log('am here', x, res)
+});
 // api.post("/login", login, authUser, (req, res) => res.render('home'));
 
 api.post("/create", createUser);
